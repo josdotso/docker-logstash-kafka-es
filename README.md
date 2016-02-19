@@ -1,8 +1,6 @@
 
-# docker-logstash
-Lean (311MB) and highly configurable Logstash Docker image, based on `gliderlabs/alpine`.
-
-[![Docker Repository on Quay.io](https://quay.io/repository/pires/docker-logstash/status "Docker Repository on Quay.io")](https://quay.io/repository/pires/docker-logstash)
+# docker-logstash-kafka-es
+Lean (311MB) Logstash Docker image for shipping json logs from Kafka to ElasticSearch, based on `pires/docker-logstash`.
 
 ## Current software
 
@@ -19,17 +17,10 @@ Run:
 
 ```
 docker run --name logstash \
-	--detach \
-	--volume /home/pires/logstash:/logstash/config \
-	quay.io/pires/docker-logstash:2.2.0
-```
-
-or 
-
-```
-docker run --name logstash \
-	--detach \
-	--volume /home/pires/logstash:/logstash/config \
-	--volume /home/pires/logstash-certs:/logstash/certs \
-	quay.io/pires/docker-logstash:2.2.0
+  --detach \
+  -e ZK_CONNECT_LIST=1.2.3.4,5.6.7.8 \
+  -e KAFKA_TOPIC=as-requestAd \
+  -e ES_URL=http://19.18.17.16/ \
+  -e ES_INDEX=as-requestad \
+  vungle/docker-logstash-kafka-es:2.2.0
 ```

@@ -27,7 +27,7 @@ fi
 sed -i "s#__ZKCONNECTLIST__#$ZK_CONNECT_LIST#" /logstash/config/logstash.conf
 sed -i "s#__MESSAGEMAX__#$MESSAGE_MAX_BYTES#" /logstash/config/logstash.conf
 sed -i "s#__MESSAGETYPE__#$MESSAGE_TYPE#" /logstash/config/logstash.conf
-sed -i "s#__KAFKATOPIC#$KAFKA_TOPIC#" /logstash/config/logstash.conf
+sed -i "s#__KAFKATOPIC__#$KAFKA_TOPIC#" /logstash/config/logstash.conf
 sed -i "s#__ESINDEX__#$ES_INDEX#" /logstash/config/logstash.conf
 sed -i "s#__ESURL__#$ES_URL#" /logstash/config/logstash.conf
 sed -i "s#__EXTRAFILTERS__#$EXTRA_FILTERS#" /logstash/config/logstash.conf

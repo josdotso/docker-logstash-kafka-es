@@ -34,7 +34,7 @@ sed -i "s#__EXTRAFILTERS__#$EXTRA_FILTERS#" /logstash/config/logstash.conf
 
 # Debug mode?
 if [ "x$DEBUG" != "x" ]; then
-  sed -i 's#output {#output { stdout { debug => true codec => "rubydebug"}#' /logstash/config/logstash.conf
+  sed -i 's#output {#output {\n  stdout {\n    codec => "rubydebug"\n  }\n#' /logstash/config/logstash.conf
 
 fi
 

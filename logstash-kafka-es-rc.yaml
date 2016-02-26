@@ -22,3 +22,38 @@ spec:
           value: 10.100.59.80:80
         - name: ES_INDEX
           value: as-exchange
+        - name: BATCH_SIZE
+          value: 10000
+        - name: JAVA_OPTS
+          value: "-XX:+UseG1GC -Djava.awt.headless=true -XX:+HeapDumpOnOutOfMemoryError
+        - name: EXTRA_FILTERS
+          value: |
+            filter {
+              grok {
+                # break_on_match => true
+                match => { "formatted_url" => ".*=%{IPV4:ex_device_ip}.*"}
+                tag_on_failure => []
+              }
+              if [app_name] =~ /(?i)android/ {
+                mutate {
+                  add_field => { "ex_platform" => "android" }
+                }
+              }
+              if [app_name] =~ /(?i)ios/ {
+                mutate {
+                  add_field => { "ex_platform" => "ios" }
+                }
+              }
+              if [app_name] =~ /(?i)windows/ {
+                mutate {
+                  add_field => { "ex_platform" => "windows" }
+                }
+              }
+              if [error] {
+                grok {
+                  break_on_match => true
+                  match => { "error" => "Video bitrate must be above %{NUMBER:ex_min_bitrate}: bitrate was %{NUMBER:video_bitrate}"}
+                  tag_on_failure => []
+                }
+              }
+            }

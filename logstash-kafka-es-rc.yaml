@@ -9,6 +9,9 @@ spec:
       labels:
         app: logstash
     spec:
+      requests:
+        memory: "8Mi"
+        #cpu: "250m"
       containers:
       - name: logstash
         image: vungle/logstash-kafka-es:2.2.0
@@ -19,13 +22,13 @@ spec:
         - name: KAFKA_TOPIC
           value: as-exchange
         - name: ES_URL
-          value: 10.100.59.80:80
+          value: "$(ELASTICSEARCH_PORT_80_TCP_ADDR):80"
         - name: ES_INDEX
           value: as-exchange
         - name: BATCH_SIZE
           value: 10000
         - name: JAVA_OPTS
-          value: "-XX:+UseG1GC -Djava.awt.headless=true -XX:+HeapDumpOnOutOfMemoryError
+          value: "-XX:+UseG1GC -Djava.awt.headless=true -XX:+HeapDumpOnOutOfMemoryError"
         - name: EXTRA_FILTERS
           value: |
             filter {

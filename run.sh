@@ -5,6 +5,7 @@ MESSAGE_MAX_BYTES=${MESSAGE_MAX_BYTES:-10485760}
 MESSAGE_TYPE=${MESSAGE_TYPE:-$KAFKA_TOPIC}
 ES_INDEX=${ES_INDEX:-$KAFKA_TOPIC}
 BATCH_SIZE=${BATCH_SIZE:-1000}
+GROUPID=${GROUPID:-logstash_$KAFKA_TOPIC\_$ES_INDEX}
 
 # JAVA_HOME is invalid in this base image
 unset JAVA_HOME
@@ -32,6 +33,7 @@ sed -i "s#__KAFKATOPIC__#$KAFKA_TOPIC#" /logstash/config/logstash.conf
 sed -i "s#__ESINDEX__#$ES_INDEX#" /logstash/config/logstash.conf
 sed -i "s#__ESURL__#$ES_URL#" /logstash/config/logstash.conf
 sed -i "s#__FLUSHSIZE__#$BATCH_SIZE#" /logstash/config/logstash.conf
+sed -i "s#__GROUPID__#$GROUPID#" /logstash/config/logstash.conf
 echo "$EXTRA_FILTERS" >> /logstash/config/logstash.conf
 
 # Debug mode?

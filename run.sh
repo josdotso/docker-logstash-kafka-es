@@ -1,11 +1,10 @@
 #!/bin/sh
 
 # set ENV defaults
-MESSAGE_MAX_BYTES=${MESSAGE_MAX_BYTES:-10485760}
 MESSAGE_TYPE=${MESSAGE_TYPE:-$KAFKA_TOPIC}
 ES_INDEX=${ES_INDEX:-$KAFKA_TOPIC}
 BATCH_SIZE=${BATCH_SIZE:-1000}
-GROUPID=${GROUPID:-logstash_$KAFKA_TOPIC\_$ES_INDEX}
+GROUPID=${GROUPID:-$KAFKA_TOPIC\_$ES_INDEX}
 
 # JAVA_HOME is invalid in this base image
 unset JAVA_HOME
@@ -27,7 +26,6 @@ fi
 
 # inject ENVs into placeholders
 sed -i "s#__ZKCONNECTLIST__#$ZK_CONNECT_LIST#" /logstash/config/logstash.conf
-sed -i "s#__MESSAGEMAX__#$MESSAGE_MAX_BYTES#" /logstash/config/logstash.conf
 sed -i "s#__MESSAGETYPE__#$MESSAGE_TYPE#" /logstash/config/logstash.conf
 sed -i "s#__KAFKATOPIC__#$KAFKA_TOPIC#" /logstash/config/logstash.conf
 sed -i "s#__ESINDEX__#$ES_INDEX#" /logstash/config/logstash.conf
@@ -43,4 +41,4 @@ if [ "x$DEBUG" != "x" ]; then
 fi
 
 cat /logstash/config/logstash.conf
-exec /logstash/bin/logstash --quiet -f /logstash/config/ -b ${BATCH_SIZE}
+exec /logstash/bin/logstash -f /logstash/config/logstash.conf -b ${BATCH_SIZE}

@@ -6,6 +6,7 @@ KAFKA_SERVERS=${KAFKA_SERVERS:-'localhost:9092'}
 ES_INDEX=${ES_INDEX:-$KAFKA_TOPIC}
 BATCH_SIZE=${BATCH_SIZE:-1000}
 GROUPID=${GROUPID:-$KAFKA_TOPIC\_$ES_INDEX}
+TEMPLATE_NAME=${TEMPLATE_NAME:-'kafka'}
 
 # JAVA_HOME is invalid in this base image
 unset JAVA_HOME
@@ -18,6 +19,7 @@ sed -i "s#__ESINDEX__#$ES_INDEX#" /logstash/config/logstash.conf
 sed -i "s#__ESURL__#$ES_URL#" /logstash/config/logstash.conf
 sed -i "s#__FLUSHSIZE__#$BATCH_SIZE#" /logstash/config/logstash.conf
 sed -i "s#__GROUPID__#$GROUPID#" /logstash/config/logstash.conf
+sed -i "s#__TEMPLATE_NAME__#$TEMPLATE_NAME#" /logstash/config/logstash.conf
 
 # Debug mode?
 if [ "x$DEBUG" != "x" ]; then

@@ -20,7 +20,7 @@ sed -i "s#__ESURL__#$ES_URL#" /logstash/config/logstash.conf
 sed -i "s#__FLUSHSIZE__#$BATCH_SIZE#" /logstash/config/logstash.conf
 sed -i "s#__GROUPID__#$GROUPID#" /logstash/config/logstash.conf
 sed -i "s#__TEMPLATE_NAME__#$TEMPLATE_NAME#" /logstash/config/logstash.conf
-sed -i "s#__OFFSET_RESET__#$OFFSET_RESET#" /logstash/config/logstash.conf
+# sed -i "s#__OFFSET_RESET__#$OFFSET_RESET#" /logstash/config/logstash.conf
 
 # Debug mode?
 if [ "x$DEBUG" != "x" ]; then

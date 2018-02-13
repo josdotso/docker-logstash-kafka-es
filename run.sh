@@ -1,5 +1,6 @@
 #!/bin/sh
 
+
 # set ENV defaults
 MESSAGE_TYPE=${MESSAGE_TYPE:-$KAFKA_TOPIC}
 KAFKA_SERVERS=${KAFKA_SERVERS:-'localhost:9092'}
